@@ -8,12 +8,12 @@ var client = blog({
 });
 
 client.create({
-  title: 'bouzuya\'s icon',
-  file: './bouzuya.png',
+  title: 'bouzuya\'s entry',
+  content: 'fun is justice!',
 
-  folder: 'bouzuya-icon',
-  generator: 'hatena-fotolife-api example'
-
+  updated: '2014-08-31T12:34:56+09:00',
+  categories: ['hatena'],
+  draft: true
 }, function(err, res) {
   if (err) {
     console.error(err);
