@@ -1,0 +1,54 @@
+{
+  "name": "hatena-blog-api",
+  "version": "0.0.0",
+  "description": "Hatena::Blog AtomPub API wrapper for Node.js (unofficial)",
+  "main": "index.js",
+  "scripts": {
+    "build": "gulp",
+    "clean": "gulp clean",
+    "coveralls": "gulp coveralls",
+    "test": "gulp test",
+    "watch": "gulp watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bouzuya/node-hatena-blog-api.git"
+  },
+  "keywords": [
+    "hatena",
+    "hatena-blog"
+  ],
+  "author": {
+    "name": "bouzuya",
+    "mail": "m@bouzuya.net",
+    "url": "http://bouzuya.net"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bouzuya/node-hatena-blog-api/issues"
+  },
+  "homepage": "https://github.com/bouzuya/node-hatena-blog-api",
+  "devDependencies": {
+    "coffee-script": "^1.7.1",
+    "del": "^0.1.2",
+    "espower-coffee": "^0.1.0",
+    "gulp": "^3.8.7",
+    "gulp-coffee": "^2.1.1",
+    "gulp-coveralls": "^0.1.2",
+    "gulp-espower": "^0.8.0",
+    "gulp-istanbul": "^0.2.2",
+    "gulp-mocha": "^1.0.0",
+    "gulp-util": "^3.0.0",
+    "merge-stream": "^0.1.5",
+    "mocha": "^1.20.1",
+    "power-assert": "^0.7.2",
+    "sinon": "^1.10.3"
+  },
+  "dependencies": {
+    "oauth": "^0.9.12",
+    "q": "^1.0.1",
+    "request": "^2.40.0",
+    "wsse": "0.0.3",
+    "xml2js": "^0.4.4"
+  }
+}
