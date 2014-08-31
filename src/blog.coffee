@@ -1,6 +1,5 @@
 {Promise} = require 'q'
 fs = require 'fs'
-mime = require 'mime'
 oauth = require 'oauth'
 request = require 'request'
 wsse = require 'wsse'
@@ -229,7 +228,5 @@ class Blog
       Promise.reject e
 
   _rawRequest: request
-
-  _mime: mime
 
 module.exports = Blog
