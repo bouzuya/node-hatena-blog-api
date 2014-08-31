@@ -1,6 +1,6 @@
 {
   "name": "hatena-blog-api",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Hatena::Blog AtomPub API wrapper for Node.js (unofficial)",
   "main": "index.js",
   "scripts": {
