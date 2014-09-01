@@ -189,25 +189,28 @@ describe 'blog', ->
         assert @request.firstCall.args[0].method is 'get'
         assert @request.firstCall.args[0].path is '/atom/edit/123'
 
-  describe.skip 'index', ->
+  describe 'index', ->
     beforeEach ->
       @request = @sinon.stub Blog.prototype, '_request', -> null
       @blog = new Blog
         type: 'wsse'
         username: 'username'
-        apikey: 'apikey'
+        blogId: 'blog id'
+        apiKey: 'api key'
 
     describe 'all options', ->
       it 'works', ->
         @blog.index {}, -> null
-        assert @request.firstCall.args[0].method is 'get'
-        assert @request.firstCall.args[0].path is '/atom/feed'
+        args = @request.firstCall.args[0]
+        assert args.method is 'get'
+        assert args.path is '/username/blog id/atom/entry'
 
     describe 'callback only', ->
       it 'works', ->
         @blog.index -> null
-        assert @request.firstCall.args[0].method is 'get'
-        assert @request.firstCall.args[0].path is '/atom/feed'
+        args = @request.firstCall.args[0]
+        assert args.method is 'get'
+        assert args.path is '/username/blog id/atom/entry'
 
   describe.skip '_request', ->
     describe 'request succeed', ->

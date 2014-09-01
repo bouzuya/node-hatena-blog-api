@@ -154,20 +154,20 @@ class Blog
   #   statusCode = 200
   #   @_request { method, path, statusCode }, callback
   #
-  # # GET FeedURI (/atom/feed)
-  # # params:
-  # #   options:
-  # #   callback:
-  # #   - err: error
-  # #   - res: response
-  # # returns:
-  # #   Promise
-  # index: (options, callback) ->
-  #   callback = options unless callback?
-  #   method = 'get'
-  #   path = '/atom/feed'
-  #   statusCode = 200
-  #   @_request { method, path, statusCode }, callback
+  # GET CollectionURI (/<username>/<blog_id>/atom/entry)
+  # params:
+  #   options:
+  #   callback:
+  #   - err: error
+  #   - res: response
+  # returns:
+  #   Promise
+  index: (options, callback) ->
+    callback = options unless callback?
+    method = 'get'
+    path = "/#{@_username}/#{@_blogId}/atom/entry"
+    statusCode = 200
+    @_request { method, path, statusCode }, callback
 
   _reject: (message, callback) ->
     try
