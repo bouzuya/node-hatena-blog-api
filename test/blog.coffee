@@ -117,13 +117,14 @@ describe 'blog', ->
         assert args.body.entry.category[2].$.term is 'api'
         assert args.body.entry['app:control']['app:draft']._ is 'yes'
 
-  describe.skip 'update', ->
+  describe 'update', ->
     beforeEach ->
       @request = @sinon.stub Blog.prototype, '_request', -> null
       @blog = new Blog
         type: 'wsse'
         username: 'username'
-        apikey: 'apikey'
+        blogId: 'blog id'
+        apiKey: 'api key'
 
     describe 'no id options', ->
       it 'calls callback with error', (done) ->
@@ -132,20 +133,13 @@ describe 'blog', ->
           assert e instanceof Error
           done()
 
-    describe 'no title options', ->
-      it 'calls callback with error', (done) ->
-        @blog.update { id: 123 }, (e) =>
-          assert @request.callCount is 0
-          assert e instanceof Error
-          done()
-
     describe 'all options', ->
       it 'works', ->
-        @blog.update { id: 123, title: 'TITLE' }, -> null
-        assert @request.firstCall.args[0].method is 'put'
-        assert @request.firstCall.args[0].path is '/atom/edit/123'
-        body = @request.firstCall.args[0].body
-        assert body.entry.title._ is 'TITLE'
+        @blog.update { id: 123, title: 'TITLE', draft: true }, -> null
+        args = @request.firstCall.args[0]
+        assert args.method is 'put'
+        assert args.path is '/username/blog id/atom/entry/123'
+        assert args.body.entry.title._ is 'TITLE'
 
   describe.skip 'destroy', ->
     beforeEach ->

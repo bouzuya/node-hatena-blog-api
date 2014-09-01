@@ -97,31 +97,41 @@ class Blog
     statusCode = 201
     @_request { method, path, body, statusCode }, callback
 
-  # TODO:
-  # # PUT EditURI (/atom/edit/XXXXXXXXXXXXXX)
-  # # params:
-  # #   options: (required)
-  # #   - id    : image id. (required)
-  # #   - title : 'title'. image title. (required)
-  # #   callback:
-  # #   - err: error
-  # #   - res: feed
-  # # returns:
-  # #   Promise
-  # update: ({ id, title }, callback) ->
-  #   return @_reject('options.id is required', callback) unless id?
-  #   return @_reject('options.title is required', callback) unless title?
-  #   method = 'put'
-  #   path = '/atom/edit/' + id
-  #   body =
-  #     entry:
-  #       $:
-  #         xmlns: 'http://purl.org/atom/ns#'
-  #       title:
-  #         _: title
-  #   statusCode = 200
-  #   @_request { method, path, body, statusCode }, callback
-  #
+
+  # PUT MemberURI (/<username>/<blog_id>/atom/entry/<entry_id>)
+  # params:
+  #   options: (required)
+  #   - id         : entry id. (required)
+  #   - title      : 'title'. entry title. default `undefined`.
+  #   - content    : 'content'. entry content. (required).
+  #   - updated    : 'updated'. default `undefined`
+  #   - categories : 'category' '@term'. default `undefined`.
+  #   - draft      : 'app:control' > 'app:draft'. default `undefined`.
+  #   callback:
+  #   - err: error
+  #   - res: response
+  # returns:
+  #   Promise
+  update: ({ id, title, content, updated, categories, draft }, callback) ->
+    return @_reject('options.id is required', callback) unless id?
+    return @_reject('options.content is required', callback) unless content?
+    method = 'put'
+    path = "/#{@_username}/#{@_blogId}/atom/entry/#{id}"
+    body = entry:
+      $:
+        xmlns: 'http://www.w3.org/2005/Atom'
+        'xmlns:app': 'http://www.w3.org/2007/app'
+      content:
+        $:
+          type: 'text/plain'
+        _: content
+    body.entry.title = _: title if title?
+    body.entry.updated = _: updated if updated?
+    body.entry.category = categories.map((c) -> $: { term: c }) if categories?
+    body.entry['app:control'] = { 'app:draft': { _: 'yes' } } if draft ? false
+    statusCode = 200
+    @_request { method, path, body, statusCode }, callback
+
   # # DELETE EditURI (/atom/edit/XXXXXXXXXXXXXX)
   # # params:
   # #   options: (required)
@@ -207,7 +217,7 @@ class Blog
         json
       .then null, (err) ->
         callback(err)
-        err
+        throw err
 
   _requestPromise: (params) ->
     new Promise (resolve, reject) =>
