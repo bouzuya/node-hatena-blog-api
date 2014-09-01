@@ -1,60 +1,63 @@
-
-throw new Error('not implement yet');
-
 // all (create -> index -> update -> show -> destroy)
 
-var fotolife = require('../'); // require('hatena-fotolife-api')
+var blog = require('../'); // require('hatena-blog-api')
 
-var client = fotolife({
+var client = blog({
   type: 'wsse',
-  username: process.env.HATENA_USERNAME, // 'username'
-  apikey: process.env.HATENA_APIKEY      // 'apikey'
+  username: process.env.HATENA_USERNAME,
+  blogId: process.env.HATENA_BLOG_ID,
+  apiKey: process.env.HATENA_APIKEY
 });
 
-var imageId = null;
+var entryId = null;
 
-// POST PostURI (/atom/post)
+// POST CollectionURI (/<username>/<blog_id>/atom/entry)
 client.create({
-  title: 'bouzuya\'s icon',
-  file: './bouzuya.png'
-})
-.then(function(res) {
+  title: 'bouzuya\'s entry',
+  content: 'fun is justice!',
+  draft: true
+}).then(function(res) {
   console.log(res);
 
   // assertion
   console.log(
-    'test 1 ' + (res.entry.title._ === 'bouzuya\'s icon' ? 'OK' : 'NG')
+    'test 1 ' + (res.entry.title._ === 'bouzuya\'s entry' ? 'OK' : 'NG')
   );
 
   // get image id for `show()`, `update()` and `destroy()`.
-  imageId = res.entry.id._.match(/^tag:[^:]+:[^-]+-[^-]+-(\d+)$/)[1];
-  console.log(imageId);
+  entryId = res.entry.id._.match(/^tag:[^:]+:[^-]+-[^-]+-\d+-(\d+)$/)[1];
+  console.log(entryId);
 
-  // GET FeedURI (/atom/feed)
+  // GET CollectionURI (/<username>/<blog_id>/atom/entry)
   return client.index();
 })
 .then(function(res) {
   console.log(res);
 
-  // PUT EditURI (/atom/edit/XXXXXXXXXXXXXX)
-  return client.update({ id: imageId, title: 'special bouzuya\'s icon' });
+  // PUT MemberURI (/<username>/<blog_id>/atom/entry/<entry_id>)
+  return client.update({
+    id: entryId,
+    title: 'special bouzuya\'s entry',
+    content: 'fun is justice!!',
+    draft: true
+  });
 })
 .then(function() {
   console.log('updated');
 
-  // GET EditURI (/atom/edit/XXXXXXXXXXXXXX)
-  return client.show({ id: imageId });
+  // GET MemberURI (/<username>/<blog_id>/atom/entry/<entry_id>)
+  return client.show({ id: entryId });
 })
 .then(function(res) {
   console.log(res);
 
   // assertion
   console.log(
-    'test 2 ' + (res.entry.title._ === 'special bouzuya\'s icon' ? 'OK' : 'NG')
+    'test 2 ' + (res.entry.title._ === 'special bouzuya\'s entry' ? 'OK' : 'NG')
   );
 
-  // DELETE EditURI (/atom/edit/XXXXXXXXXXXXXX)
-  return client.destroy({ id: imageId });
+  // DELETE MemberURI (/<username>/<blog_id>/atom/entry/<entry_id>)
+  return client.destroy({ id: entryId });
 })
 .then(function() {
   console.log('deleted');
@@ -64,40 +67,34 @@ client.create({
 //
 // { entry:
 //    { '$':
-//       { xmlns: 'http://purl.org/atom/ns#',
-//         'xmlns:hatena': 'http://www.hatena.ne.jp/info/xmlns#' },
-//      title: { _: 'bouzuya\'s icon' },
+//       { xmlns: 'http://www.w3.org/2005/Atom',
+//         'xmlns:app': 'http://www.w3.org/2007/app' },
+//      id: { _: 'tag:blog.hatena.ne.jp,2013:blog-bouzuya-12704346814673856423-12921228815731812899' },
 //      link: [ [Object], [Object] ],
-//      issued: { _: '2014-08-22T00:02:16+09:00' },
 //      author: { name: [Object] },
-//      generator: { _: 'Hatena::Fotolife', '$': [Object] },
-//      'dc:subject': { '$': [Object] },
-//      id: { _: 'tag:hatena.ne.jp,2005:fotolife-bouzuya-20140822000216' },
-//      'hatena:imageurl': { _: 'http://f.st-hatena.com/images/fotolife/b/bouzuya/20140822/20140822000216.png?1408633338' },
-//      'hatena:imageurlmedium': { _: 'http://f.st-hatena.com/images/fotolife/b/bouzuya/20140822/20140822000216_120.jpg?1408633338' },
-//      'hatena:imageurlsmall': { _: 'http://f.st-hatena.com/images/fotolife/b/bouzuya/20140822/20140822000216_m.jpg?1408633338' },
-//      'hatena:syntax': { _: 'f:id:bouzuya:20140822000216p:image' } } }
+//      title: { _: 'bouzuya\'s entry' },
+//      updated: { _: '2014-09-01T23:18:18+09:00' },
+//      published: { _: '2014-09-01T23:18:18+09:00' },
+//      'app:edited': { _: '2014-09-01T23:18:18+09:00' },
+//      summary: { _: 'fun is justice!', '$': [Object] },
+//      content: { _: 'fun is justice!', '$': [Object] },
+//      'hatena:formatted-content': { _: '<p>fun is justice!</p>\n', '$': [Object] },
+//      'app:control': { 'app:draft': [Object] } } }
 // test 1 OK
-// 20140822000216
+// 12921228815731812899
 // { feed:
 //    { '$':
-//       { version: '0.3',
-//         xmlns: 'http://purl.org/atom/ns#',
-//         'xmlns:hatena': 'http://www.hatena.ne.jp/info/xmlns#',
-//         'xml:lang': 'ja' },
-//      title: { _: 'bouzuya\'s fotolife' },
-//      link: [ [Object], [Object] ],
-//      modified: { _: '2014-08-22 00:02:18' },
+//       { xmlns: 'http://www.w3.org/2005/Atom',
+//         'xmlns:app': 'http://www.w3.org/2007/app' },
+//      link: [ [Object], [Object], [Object] ],
+//      title: { _: '15 min/d' },
+//      subtitle: { _: 'http://blog.bouzuya.net/ のミラーですよ。' },
+//      updated: { _: '2014-09-01T23:00:17+09:00' },
 //      author: { name: [Object] },
-//      id: { _: 'tag:hatena.ne.jp,2005:fotolife-bouzuya' },
-//      generator: { _: 'Hatena::Fotolife', '$': [Object] },
+//      generator: { _: 'Hatena::Blog', '$': [Object] },
+//      id: { _: 'hatenablog://blog/12704346814673856423' },
 //      entry:
 //       [ [Object],
-//         [Object],
-//         [Object],
-//         [Object],
-//         [Object],
-//         [Object],
 //         [Object],
 //         [Object],
 //         [Object],
@@ -110,18 +107,19 @@ client.create({
 // updated
 // { entry:
 //    { '$':
-//       { xmlns: 'http://purl.org/atom/ns#',
-//         'xmlns:hatena': 'http://www.hatena.ne.jp/info/xmlns#' },
-//      title: { _: 'special bouzuya\'s icon' },
+//       { xmlns: 'http://www.w3.org/2005/Atom',
+//         'xmlns:app': 'http://www.w3.org/2007/app' },
+//      id: { _: 'tag:blog.hatena.ne.jp,2013:blog-bouzuya-12704346814673856423-12921228815731812899' },
 //      link: [ [Object], [Object] ],
-//      issued: { _: '2014-08-22T00:02:16+09:00' },
 //      author: { name: [Object] },
-//      generator: { _: 'Hatena::Fotolife', '$': [Object] },
-//      id: { _: 'tag:hatena.ne.jp,2005:fotolife-bouzuya-20140822000216' },
-//      'hatena:imageurl': { _: 'http://f.st-hatena.com/images/fotolife/b/bouzuya/20140822/20140822000216.png?1408633340' },
-//      'hatena:imageurlmedium': { _: 'http://f.st-hatena.com/images/fotolife/b/bouzuya/20140822/20140822000216_120.jpg?1408633340' },
-//      'hatena:imageurlsmall': { _: 'http://f.st-hatena.com/images/fotolife/b/bouzuya/20140822/20140822000216_m.jpg?1408633340' },
-//      'hatena:syntax': { _: 'f:id:bouzuya:20140822000216p:image' } } }
+//      title: { _: 'special bouzuya\'s entry' },
+//      updated: { _: '2014-09-01T23:18:30+09:00' },
+//      published: { _: '2014-09-01T23:18:18+09:00' },
+//      'app:edited': { _: '2014-09-01T23:18:30+09:00' },
+//      summary: { _: 'fun is justice!!', '$': [Object] },
+//      content: { _: 'fun is justice!!', '$': [Object] },
+//      'hatena:formatted-content': { _: '<p>fun is justice!!</p>\n', '$': [Object] },
+//      'app:control': { 'app:draft': [Object] } } }
 // test 2 OK
 // deleted
 //
