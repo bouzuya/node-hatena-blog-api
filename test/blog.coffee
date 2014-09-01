@@ -168,13 +168,14 @@ describe 'blog', ->
         assert @request.firstCall.args[0].method is 'delete'
         assert @request.firstCall.args[0].path is '/atom/edit/123'
 
-  describe.skip 'show', ->
+  describe 'show', ->
     beforeEach ->
       @request = @sinon.stub Blog.prototype, '_request', -> null
       @blog = new Blog
         type: 'wsse'
         username: 'username'
-        apikey: 'apikey'
+        blogId: 'blog id'
+        apiKey: 'api key'
 
     describe 'no id options', ->
       it 'calls callback with error', (done) ->
@@ -186,8 +187,9 @@ describe 'blog', ->
     describe 'all options', ->
       it 'works', ->
         @blog.show { id: 123 }, -> null
-        assert @request.firstCall.args[0].method is 'get'
-        assert @request.firstCall.args[0].path is '/atom/edit/123'
+        args = @request.firstCall.args[0]
+        assert args.method is 'get'
+        assert args.path is '/username/blog id/atom/entry/123'
 
   describe 'index', ->
     beforeEach ->

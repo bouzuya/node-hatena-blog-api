@@ -138,22 +138,22 @@ class Blog
   #   statusCode = 200
   #   @_request { method, path, statusCode }, callback
   #
-  # # GET EditURI (/atom/edit/XXXXXXXXXXXXXX)
-  # # params:
-  # #   options: (required)
-  # #   - id: image id. (required)
-  # #   callback:
-  # #   - err: error
-  # #   - res: response
-  # # returns:
-  # #   Promise
-  # show: ({ id }, callback) ->
-  #   return @_reject('options.id is required', callback) unless id?
-  #   method = 'get'
-  #   path = '/atom/edit/' + id
-  #   statusCode = 200
-  #   @_request { method, path, statusCode }, callback
-  #
+  # GET MemberURI (/<username>/<blog_id>/atom/entry/<entry_id>)
+  # params:
+  #   options: (required)
+  #   - id: entry id. (required)
+  #   callback:
+  #   - err: error
+  #   - res: response
+  # returns:
+  #   Promise
+  show: ({ id }, callback) ->
+    return @_reject('options.id is required', callback) unless id?
+    method = 'get'
+    path = "/#{@_username}/#{@_blogId}/atom/entry/#{id}"
+    statusCode = 200
+    @_request { method, path, statusCode }, callback
+
   # GET CollectionURI (/<username>/<blog_id>/atom/entry)
   # params:
   #   options:
