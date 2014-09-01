@@ -20,8 +20,8 @@ var blog = require('hatena-blog-api');
 var client = blog({
   type: 'wsse',
   username: 'username',
-  blogId: 'blogId',
-  apikey: 'apikey'
+  blogId: 'blog id',
+  apiKey: 'api key'
 });
 var options = { title: 'bouzuya\'s entry', content: 'fun is justice!' };
 
@@ -56,7 +56,7 @@ See ["How to use Hatena WSSE"](http://developer.hatena.ne.jp/ja/documents/auth/a
 
 - username ... Your username.
 - blogId ... Your blod id.
-- apikey ... See [AtomPub API key](http://blog.hatena.ne.jp/my/config/detail).
+- apiKey ... See [AtomPub API key](http://blog.hatena.ne.jp/my/config/detail).
 
 #### OAuth
 
@@ -69,11 +69,11 @@ var blog = require('hatena-blog-api');
 
 var client = blog({
   type: 'oauth',
-  blogId: 'blogId',
-  consumerKey: 'consumerKey',
-  consumerSecret: 'consumerSecret',
-  accessToken: 'accessToken',
-  accessTokenSecret: 'accessTokenSecret'
+  blogId: 'blog id',
+  consumerKey: 'consumer key',
+  consumerSecret: 'consumer secret',
+  accessToken: 'access token',
+  accessTokenSecret: 'access token secret'
 });
 
 // ...

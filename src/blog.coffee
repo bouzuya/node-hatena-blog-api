@@ -37,23 +37,30 @@ class Blog
   #   - accessToken       : oauth access token. (required)
   #   - accessTokenSecret : oauth access token secret. (required)
   constructor: ({
-    type,
-    username,
-    blogId,
-    apikey,
+    type
+    username
+    userName
+    blogid
+    blogId
+    apikey
+    apiKey
+    consumerkey
     consumerKey
-    consumerSecret,
-    accessToken,
+    consumersecret
+    consumerSecret
+    accesstoken
+    accessToken
+    accesstokensecret
     accessTokenSecret
   }) ->
     @_type = type ? 'wsse'
-    @_username = username
-    @_blogId = blogId
-    @_apikey = apikey
-    @_consumerKey = consumerKey
-    @_consumerSecret = consumerSecret
-    @_accessToken = accessToken
-    @_accessTokenSecret = accessTokenSecret
+    @_username = userName ? username
+    @_blogId = blogId ? blogid
+    @_apiKey = apiKey ? apikey
+    @_consumerKey = consumerKey ? consumerkey
+    @_consumerSecret = consumerSecret ? consumersecret
+    @_accessToken = accessToken ? accesstoken
+    @_accessTokenSecret = accessTokenSecret ? accesstokensecret
     @_baseUrl = 'https://blog.hatena.ne.jp'
 
   # POST CollectionURI (/<username>/<blog_id>/atom/entry)
@@ -182,7 +189,7 @@ class Blog
         token: @_accessToken
         token_secret: @_accessTokenSecret
     else # @_type is 'wsse'
-      token = wsse().getUsernameToken @_username, @_apikey, nonceBase64: true
+      token = wsse().getUsernameToken @_username, @_apiKey, nonceBase64: true
       params.headers =
         'Authorization': 'WSSE profile="UsernameToken"'
         'X-WSSE': 'UsernameToken ' + token

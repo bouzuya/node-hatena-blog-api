@@ -13,31 +13,68 @@ describe 'blog', ->
 
   describe 'constructor', ->
     describe 'use wsse', ->
-      beforeEach ->
-        @blog = new Blog
-          username: 'username'
-          apikey: 'apikey'
+      describe 'lowercase', ->
+        beforeEach ->
+          @blog = new Blog
+            username: 'username'
+            blogid: 'blog id'
+            apikey: 'api key'
 
-      it 'works', ->
-        assert @blog._type is 'wsse'
-        assert @blog._username is 'username'
-        assert @blog._apikey is 'apikey'
+        it 'works', ->
+          assert @blog._type is 'wsse'
+          assert @blog._username is 'username'
+          assert @blog._apiKey is 'api key'
+          assert @blog._blogId is 'blog id'
+
+      describe 'camelcase', ->
+        beforeEach ->
+          @blog = new Blog
+            userName: 'username'
+            apiKey: 'api key'
+            blogId: 'blog id'
+
+        it 'works', ->
+          assert @blog._type is 'wsse'
+          assert @blog._username is 'username'
+          assert @blog._apiKey is 'api key'
+          assert @blog._blogId is 'blog id'
 
     describe 'use oauth', ->
-      beforeEach ->
-        @blog = new Blog
-          type: 'oauth'
-          consumerKey: 'consumerKey'
-          consumerSecret: 'consumerSecret'
-          accessToken: 'accessToken'
-          accessTokenSecret: 'accessTokenSecret'
+      describe 'lowercase', ->
+        beforeEach ->
+          @blog = new Blog
+            type: 'oauth'
+            blogid: 'blog id'
+            consumerkey: 'consumer key'
+            consumersecret: 'consumer secret'
+            accesstoken: 'access token'
+            accesstokensecret: 'access token secret'
 
-      it 'works', ->
-        assert @blog._type is 'oauth'
-        assert @blog._consumerKey is 'consumerKey'
-        assert @blog._consumerSecret is 'consumerSecret'
-        assert @blog._accessToken is 'accessToken'
-        assert @blog._accessTokenSecret is 'accessTokenSecret'
+        it 'works', ->
+          assert @blog._type is 'oauth'
+          assert @blog._blogId is 'blog id'
+          assert @blog._consumerKey is 'consumer key'
+          assert @blog._consumerSecret is 'consumer secret'
+          assert @blog._accessToken is 'access token'
+          assert @blog._accessTokenSecret is 'access token secret'
+
+      describe 'camelcase', ->
+        beforeEach ->
+          @blog = new Blog
+            type: 'oauth'
+            blogId: 'blog id'
+            consumerKey: 'consumerKey'
+            consumerSecret: 'consumerSecret'
+            accessToken: 'accessToken'
+            accessTokenSecret: 'accessTokenSecret'
+
+        it 'works', ->
+          assert @blog._type is 'oauth'
+          assert @blog._blogId is 'blog id'
+          assert @blog._consumerKey is 'consumerKey'
+          assert @blog._consumerSecret is 'consumerSecret'
+          assert @blog._accessToken is 'accessToken'
+          assert @blog._accessTokenSecret is 'accessTokenSecret'
 
   describe 'create', ->
     beforeEach ->
