@@ -135,19 +135,20 @@ describe 'blog', ->
 
     describe 'all options', ->
       it 'works', ->
-        @blog.update { id: 123, title: 'TITLE', draft: true }, -> null
+        @blog.update { id: 123, content: 'CONTENT', draft: true }, -> null
         args = @request.firstCall.args[0]
         assert args.method is 'put'
         assert args.path is '/username/blog id/atom/entry/123'
-        assert args.body.entry.title._ is 'TITLE'
+        assert args.body.entry.content._ is 'CONTENT'
 
-  describe.skip 'destroy', ->
+  describe 'destroy', ->
     beforeEach ->
       @request = @sinon.stub Blog.prototype, '_request', -> null
       @blog = new Blog
         type: 'wsse'
         username: 'username'
-        apikey: 'apikey'
+        blogId: 'blog id'
+        apiKey: 'api key'
 
     describe 'no id options', ->
       it 'calls callback with error', (done) ->
@@ -159,8 +160,9 @@ describe 'blog', ->
     describe 'all options', ->
       it 'works', ->
         @blog.destroy { id: 123 }, -> null
-        assert @request.firstCall.args[0].method is 'delete'
-        assert @request.firstCall.args[0].path is '/atom/edit/123'
+        args = @request.firstCall.args[0]
+        assert args.method is 'delete'
+        assert args.path is '/username/blog id/atom/entry/123'
 
   describe 'show', ->
     beforeEach ->
@@ -208,7 +210,7 @@ describe 'blog', ->
         assert args.method is 'get'
         assert args.path is '/username/blog id/atom/entry'
 
-  describe.skip '_request', ->
+  describe '_request', ->
     describe 'request succeed', ->
       beforeEach ->
         @request = @sinon.stub Blog.prototype, '_requestPromise', ->
@@ -219,7 +221,8 @@ describe 'blog', ->
           @blog = new Blog
             type: 'wsse'
             username: 'username'
-            apikey: 'apikey'
+            blogId: 'blog id'
+            apiKey: 'api key'
 
         describe 'callback style', ->
           it 'works', (done) ->
@@ -234,7 +237,7 @@ describe 'blog', ->
               try
                 args = @request.firstCall.args
                 assert args[0].method is 'METHOD'
-                assert args[0].url is 'http://f.hatena.ne.jpPATH'
+                assert args[0].url is 'https://blog.hatena.ne.jpPATH'
                 assert args[0].headers.Authorization?
                 assert args[0].headers['X-WSSE']?
               catch e
@@ -252,7 +255,7 @@ describe 'blog', ->
                 .then =>
                   args = @request.firstCall.args
                   assert args[0].method is 'METHOD'
-                  assert args[0].url is 'http://f.hatena.ne.jpPATH'
+                  assert args[0].url is 'https://blog.hatena.ne.jpPATH'
                   assert args[0].headers.Authorization?
                   assert args[0].headers['X-WSSE']?
                 .then (-> done()), done
@@ -272,6 +275,8 @@ describe 'blog', ->
         beforeEach ->
           @blog = new Blog
             type: 'oauth'
+            username: 'USERNAME'
+            blogId: 'BLOG_ID'
             consumerKey: 'CONSUMER_KEY'
             consumerSecret: 'CONSUMER_SECRET'
             accessToken: 'ACCESS_TOKEN'
@@ -286,7 +291,7 @@ describe 'blog', ->
             }, (err, res) =>
               args = @request.firstCall.args
               assert args[0].method is 'METHOD'
-              assert args[0].url is 'http://f.hatena.ne.jpPATH'
+              assert args[0].url is 'https://blog.hatena.ne.jpPATH'
               assert args[0].oauth.consumer_key is 'CONSUMER_KEY'
               assert args[0].oauth.consumer_secret is 'CONSUMER_SECRET'
               assert args[0].oauth.token is 'ACCESS_TOKEN'
@@ -303,7 +308,7 @@ describe 'blog', ->
               .then =>
                 args = @request.firstCall.args
                 assert args[0].method is 'METHOD'
-                assert args[0].url is 'http://f.hatena.ne.jpPATH'
+                assert args[0].url is 'https://blog.hatena.ne.jpPATH'
                 assert args[0].oauth.consumer_key is 'CONSUMER_KEY'
                 assert args[0].oauth.consumer_secret is 'CONSUMER_SECRET'
                 assert args[0].oauth.token is 'ACCESS_TOKEN'
@@ -339,6 +344,8 @@ describe 'blog', ->
         beforeEach ->
           @blog = new Blog
             type: 'oauth'
+            username: 'USERNAME'
+            blogId: 'BLOG_ID'
             consumerKey: 'CONSUMER_KEY'
             consumerSecret: 'CONSUMER_SECRET'
             accessToken: 'ACCESS_TOKEN'

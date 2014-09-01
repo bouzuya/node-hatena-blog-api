@@ -132,22 +132,22 @@ class Blog
     statusCode = 200
     @_request { method, path, body, statusCode }, callback
 
-  # # DELETE EditURI (/atom/edit/XXXXXXXXXXXXXX)
-  # # params:
-  # #   options: (required)
-  # #   - id: image id. (required)
-  # #   callback:
-  # #   - err: error
-  # #   - res: response
-  # # returns:
-  # #   Promise
-  # destroy: ({ id }, callback) ->
-  #   return @_reject('options.id is required', callback) unless id?
-  #   method = 'delete'
-  #   path = '/atom/edit/' + id
-  #   statusCode = 200
-  #   @_request { method, path, statusCode }, callback
-  #
+  # DELETE MemberURI (/<username>/<blog_id>/atom/entry/<entry_id>)
+  # params:
+  #   options: (required)
+  #   - id: entry id. (required)
+  #   callback:
+  #   - err: error
+  #   - res: response
+  # returns:
+  #   Promise
+  destroy: ({ id }, callback) ->
+    return @_reject('options.id is required', callback) unless id?
+    method = 'delete'
+    path = "/#{@_username}/#{@_blogId}/atom/entry/#{id}"
+    statusCode = 200
+    @_request { method, path, statusCode }, callback
+
   # GET MemberURI (/<username>/<blog_id>/atom/entry/<entry_id>)
   # params:
   #   options: (required)
