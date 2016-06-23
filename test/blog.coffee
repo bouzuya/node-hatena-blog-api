@@ -196,19 +196,19 @@ describe 'blog', ->
         blogId: 'blog id'
         apiKey: 'api key'
 
-    describe 'all options', ->
+    describe 'no options', ->
       it 'works', ->
         @blog.index {}, -> null
         args = @request.firstCall.args[0]
         assert args.method is 'get'
         assert args.path is '/username/blog id/atom/entry'
 
-    describe 'callback only', ->
+    describe 'pageId options', ->
       it 'works', ->
-        @blog.index -> null
+        @blog.index { pageId: 123 }, -> null
         args = @request.firstCall.args[0]
         assert args.method is 'get'
-        assert args.path is '/username/blog id/atom/entry'
+        assert args.path is '/username/blog id/atom/entry?page=123'
 
   describe '_request', ->
     describe 'request succeed', ->
