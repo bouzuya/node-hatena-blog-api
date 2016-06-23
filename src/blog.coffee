@@ -167,15 +167,19 @@ class Blog
   # GET CollectionURI (/<username>/<blog_id>/atom/entry)
   # params:
   #   options:
+  #   - pageId: page id.
   #   callback:
   #   - err: error
   #   - res: response
   # returns:
   #   Promise
   index: (options, callback) ->
-    callback = options unless callback?
     method = 'get'
-    path = "/#{@_username}/#{@_blogId}/atom/entry"
+    if options? and options.pageId?
+        path = "/#{@_username}/#{@_blogId}/atom/entry?page=#{options.pageId}"
+    else
+        callback = options unless callback?
+        path = "/#{@_username}/#{@_blogId}/atom/entry"
     statusCode = 200
     @_request { method, path, statusCode }, callback
 
