@@ -176,10 +176,10 @@ class Blog
   index: (options, callback) ->
     method = 'get'
     if options? and options.pageId?
-        path = "/#{@_username}/#{@_blogId}/atom/entry?page=#{options.pageId}"
+      path = "/#{@_username}/#{@_blogId}/atom/entry?page=#{options.pageId}"
     else
-        callback = options unless callback?
-        path = "/#{@_username}/#{@_blogId}/atom/entry"
+      callback = options unless callback?
+      path = "/#{@_username}/#{@_blogId}/atom/entry"
     statusCode = 200
     @_request { method, path, statusCode }, callback
 
