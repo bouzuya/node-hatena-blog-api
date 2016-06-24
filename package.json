@@ -49,6 +49,7 @@
     "build": "gulp",
     "clean": "gulp clean",
     "coveralls": "gulp coveralls",
+    "prepublish": "npm-run-all -s 'clean' 'build'",
     "test": "gulp test",
     "watch": "gulp watch"
   }
