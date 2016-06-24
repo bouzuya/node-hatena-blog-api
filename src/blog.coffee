@@ -167,7 +167,7 @@ class Blog
   # GET CollectionURI (/<username>/<blog_id>/atom/entry)
   # params:
   #   options:
-  #   - pageId: page id.
+  #   - page: page
   #   callback:
   #   - err: error
   #   - res: response
@@ -178,9 +178,9 @@ class Blog
     unless callback?
       callback = options
       options = null
-    pageId = options?.pageId
     pathWithoutQuery = "/#{@_username}/#{@_blogId}/atom/entry"
-    query = (if pageId? then "?page=#{pageId}" else '')
+    page = options?.page
+    query = (if page? then "?page=#{page}" else '')
     path = pathWithoutQuery + query
     statusCode = 200
     @_request { method, path, statusCode }, callback

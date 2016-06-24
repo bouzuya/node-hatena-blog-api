@@ -203,9 +203,9 @@ describe 'blog', ->
         assert args.method is 'get'
         assert args.path is '/username/blog id/atom/entry'
 
-    describe 'pageId options', ->
+    describe 'page options', ->
       it 'works', ->
-        @blog.index { pageId: 123 }, -> null
+        @blog.index { page: 123 }, -> null
         args = @request.firstCall.args[0]
         assert args.method is 'get'
         assert args.path is '/username/blog id/atom/entry?page=123'
