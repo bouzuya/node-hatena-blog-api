@@ -175,10 +175,13 @@ class Blog
   #   Promise
   index: (options, callback) ->
     method = 'get'
+    unless callback?
+      callback = options
+      options = null
+    path = null
     if options? and options.pageId?
       path = "/#{@_username}/#{@_blogId}/atom/entry?page=#{options.pageId}"
     else
-      callback = options unless callback?
       path = "/#{@_username}/#{@_blogId}/atom/entry"
     statusCode = 200
     @_request { method, path, statusCode }, callback
