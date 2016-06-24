@@ -178,11 +178,10 @@ class Blog
     unless callback?
       callback = options
       options = null
-    path = null
-    if options? and options.pageId?
-      path = "/#{@_username}/#{@_blogId}/atom/entry?page=#{options.pageId}"
-    else
-      path = "/#{@_username}/#{@_blogId}/atom/entry"
+    pageId = options?.pageId
+    pathWithoutQuery = "/#{@_username}/#{@_blogId}/atom/entry"
+    query = (if pageId? then "?page=#{pageId}" else '')
+    path = pathWithoutQuery + query
     statusCode = 200
     @_request { method, path, statusCode }, callback
 
