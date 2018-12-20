@@ -18,7 +18,7 @@
     "xml2js": "^0.4.4"
   },
   "devDependencies": {
-    "coffee-script": "^1.7.1",
+    "coffeescript": "^2.3.2",
     "del": "^0.1.2",
     "espower-coffee": "^0.1.0",
     "gulp": "^3.8.7",
