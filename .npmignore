@@ -1,6 +1,0 @@
-.travis.yml
-coverage
-examples
-gulpfile.coffee
-src
-test

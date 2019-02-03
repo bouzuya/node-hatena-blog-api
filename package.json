@@ -34,13 +34,16 @@
     "power-assert": "^0.7.2",
     "sinon": "^1.10.3"
   },
+  "files": [
+    "lib"
+  ],
   "homepage": "https://github.com/bouzuya/node-hatena-blog-api",
   "keywords": [
     "hatena",
     "hatena-blog"
   ],
   "license": "MIT",
-  "main": "index.js",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/bouzuya/node-hatena-blog-api.git"
