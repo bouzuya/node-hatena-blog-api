@@ -1,6 +1,6 @@
 # hatena-blog-api
 
-Hatena::Blog AtomPub API wrapper for Node.js (unofficial)
+[Hatena::Blog AtomPub API](http://developer.hatena.ne.jp/ja/documents/blog/apis/atom) wrapper for Node.js (unofficial)
 
 ## Installation
 
