@@ -1,5 +1,7 @@
-.tmp
-*.log
-coverage
-lib
-node_modules
+/.env*
+/.nyc_output/
+/.tmp/
+/*.tgz
+/coverage/
+/lib/
+/node_modules/
