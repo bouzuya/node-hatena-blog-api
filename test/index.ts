@@ -1,4 +1,5 @@
 import { Test, run } from 'beater';
+export * from './example';
 
 const tests = ([] as Test[]);
 
