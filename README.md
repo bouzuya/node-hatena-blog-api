@@ -93,7 +93,7 @@ See [Hatena::Blog AtomPub API](http://developer.hatena.ne.jp/ja/documents/blog/a
 
 ## Author
 
-[bouzuya][user] &lt;[m@bouzuya.net][mail]&gt; ([http://bouzuya.net][url])
+[bouzuya][user] &lt;[m@bouzuya.net][mail]&gt; ([https://bouzuya.net/][url])
 
 ## Badges
 
@@ -109,4 +109,4 @@ See [Hatena::Blog AtomPub API](http://developer.hatena.ne.jp/ja/documents/blog/a
 [coveralls-badge]: https://img.shields.io/coveralls/bouzuya/node-hatena-blog-api.svg
 [user]: https://github.com/bouzuya
 [mail]: mailto:m@bouzuya.net
-[url]: http://bouzuya.net
+[url]: https://bouzuya.net/
