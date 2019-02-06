@@ -41,6 +41,7 @@ See [Hatena::Blog AtomPub API](http://developer.hatena.ne.jp/ja/documents/blog/a
 ## Author
 
 [bouzuya][user] &lt;[m@bouzuya.net][mail]&gt; ([https://bouzuya.net/][url])
+
 [user]: https://github.com/bouzuya
 [mail]: mailto:m@bouzuya.net
 [url]: https://bouzuya.net/
