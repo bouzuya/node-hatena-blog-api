@@ -24,18 +24,17 @@
     "url": "https://github.com/bouzuya/node-hatena-blog-api/issues"
   },
   "dependencies": {
-    "oauth": "^0.9.12",
-    "q": "^1.0.1",
-    "request": "^2.40.0",
-    "wsse": "0.0.3",
-    "xml2js": "^0.4.4"
+    "@bouzuya/xml": "^0.2.0",
+    "request": "^2.88.0",
+    "wsse": "^3.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
-    "@types/node": "^10.12.18",
+    "@types/node": "^10.12.21",
     "@types/power-assert": "^1.5.0",
+    "@types/request": "^2.48.1",
     "babel-preset-power-assert": "^3.0.0",
     "beater": "^5.0.1",
     "coveralls": "^3.0.2",
@@ -75,6 +74,7 @@
     "watch": "npm-run-all -p 'watch:*'",
     "watch:es2015": "npm run build:es2015 -- --watch",
     "watch:es5": "npm run build:es5 -- --watch",
+    "watch:lib": "npm run build:lib -- --watch",
     "watch:test": "watch 'npm run test' .tmp/es5/ --wait 2"
   }
 }
