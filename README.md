@@ -16,6 +16,11 @@ See [`test/example.ts`](test/example.ts).
 
 See [Hatena::Blog AtomPub API](http://developer.hatena.ne.jp/ja/documents/blog/apis/atom) and [`test/example.ts`](test/example.ts).
 
+## TODO
+
+- fix tests
+- list categories
+
 ## Badges
 
 [![npm version][npm-badge-url]][npm-url]
