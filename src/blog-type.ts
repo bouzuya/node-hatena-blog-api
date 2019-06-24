@@ -10,6 +10,7 @@ interface Blog {
 
 interface BlogEntry {
   authorName: string;
+  categories: string[];
   content: string;
   contentType: BlogEntryContentType;
   draft: boolean;
