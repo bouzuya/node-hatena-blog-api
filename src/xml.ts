@@ -54,6 +54,8 @@ const getEntry = (entry: Element): BlogEntry => {
 
   const authorName = getElementTextByTagNames(entry, ['author', 'name']);
 
+  const categories = getElementsByTagName(entry, 'category').map((category) => category.attributes.term);
+
   const contentElement = getElementByTagNames(entry, ['content']);
   if (contentElement === null) throw new Error('no content');
   if (contentElement.children.length === 0 || (
@@ -96,6 +98,7 @@ const getEntry = (entry: Element): BlogEntry => {
 
   return {
     authorName,
+    categories,
     content,
     contentType,
     draft,
