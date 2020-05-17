@@ -13,6 +13,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "./.tmp/es2015/",
+    "plugins": [
+      {
+        "transform": "@zoltu/typescript-transformer-append-js-extension/output/index.js",
+        "after": true
+      }
+    ],
     "removeComments": true,
     "rootDir": "./",
     "sourceMap": false,

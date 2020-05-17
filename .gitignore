@@ -1,7 +1,8 @@
+/*.tgz
 /.env*
 /.nyc_output/
 /.tmp/
-/*.tgz
 /coverage/
+/esm/
 /lib/
 /node_modules/

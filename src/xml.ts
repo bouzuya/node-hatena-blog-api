@@ -1,12 +1,9 @@
-import {
-  Document,
-  Element,
-  Node,
-  create,
-  createDeclaration,
-  createElement,
-} from "@bouzuya/xml";
+import * as xml from "@bouzuya/xml";
+import { Document, Element, Node } from "@bouzuya/xml";
 import { BlogEntry, BlogEntryContentType, BlogEntryParams } from "./blog-type";
+
+// workaround for node.js esm behavior
+const { create, createDeclaration, createElement } = xml;
 
 const isElement = (i: Node): i is Element => typeof i !== "string";
 

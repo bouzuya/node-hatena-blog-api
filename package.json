@@ -37,6 +37,7 @@
     "@types/request": "^2.48.5",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
+    "@zoltu/typescript-transformer-append-js-extension": "^1.0.1",
     "babel-preset-power-assert": "^3.0.0",
     "beater": "^9.0.1",
     "beater-helpers": "^2.0.0",
@@ -49,7 +50,12 @@
     "power-assert": "^1.6.1",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
+    "ttypescript": "^1.5.10",
     "typescript": "^3.9.2"
+  },
+  "exports": {
+    "import": "esm/index.js",
+    "require": "lib/index.js"
   },
   "files": [
     "lib"
@@ -66,9 +72,10 @@
     "url": "git://github.com/bouzuya/node-hatena-blog-api.git"
   },
   "scripts": {
-    "build": "npm-run-all -s build:format build:lint build:es2015 build:es5 build:lib",
-    "build:es2015": "tsc",
+    "build": "npm-run-all -s build:format build:lint build:es2015 build:es5 build:lib build:esm",
+    "build:es2015": "ttsc",
     "build:es5": "babel --out-dir .tmp/es5/ --source-maps inline .tmp/es2015/",
+    "build:esm": "babel --no-babelrc --copy-files --no-comments --out-dir ./esm/ .tmp/es2015/src/",
     "build:format": "prettier --check \"{src,test}/**/*.ts\"",
     "build:lib": "babel --copy-files --no-comments --out-dir ./lib/ .tmp/es2015/src/",
     "build:lint": "eslint \"{src,test}/**/*.ts\"",
@@ -83,5 +90,6 @@
     "watch:es5": "npm run build:es5 -- --watch",
     "watch:lib": "npm run build:lib -- --watch",
     "watch:test": "chokidar \".tmp/es5/**/*.js\" --command \"npm run test\" --silent"
-  }
+  },
+  "type": "module"
 }

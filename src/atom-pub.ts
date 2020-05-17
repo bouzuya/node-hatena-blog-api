@@ -1,4 +1,8 @@
-import { Document, format, parse } from "@bouzuya/xml";
+import * as xml from "@bouzuya/xml";
+import { Document } from "@bouzuya/xml";
+
+// workaround for node.js esm behavior
+const { format, parse } = xml;
 
 type Request = (params: {
   body?: string;
