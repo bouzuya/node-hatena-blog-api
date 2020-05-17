@@ -44,4 +44,4 @@ const main = async (): Promise<void> => {
   console.log("deleted");
 };
 
-main();
+export { main };
