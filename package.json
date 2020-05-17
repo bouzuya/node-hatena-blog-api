@@ -1,7 +1,7 @@
 {
   "name": "hatena-blog-api",
   "description": "Hatena::Blog AtomPub API wrapper for Node.js (unofficial)",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "author": {
     "name": "bouzuya",
     "email": "m@bouzuya.net",
