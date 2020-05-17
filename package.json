@@ -54,8 +54,8 @@
     "typescript": "^3.9.2"
   },
   "exports": {
-    "import": "esm/index.js",
-    "require": "lib/index.js"
+    "import": "./esm/index.js",
+    "require": "./lib/index.js"
   },
   "files": [
     "esm",
@@ -67,7 +67,7 @@
     "hatena-blog"
   ],
   "license": "MIT",
-  "main": "lib/index.js",
+  "main": "./lib/index.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/bouzuya/node-hatena-blog-api.git"
