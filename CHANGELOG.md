@@ -1,3 +1,9 @@
+## [2.0.2](https://github.com/bouzuya/node-hatena-blog-api/compare/v2.0.1...v2.0.2) (2020-05-17)
+
+* fix: remove pkg.type field ([ee2de8d](https://github.com/bouzuya/node-hatena-blog-api/commit/ee2de8d))
+
+
+
 ## [2.0.1](https://github.com/bouzuya/node-hatena-blog-api/compare/v2.0.0...v2.0.1) (2020-05-17)
 
 * fix: pkg.exports field ([6694e09](https://github.com/bouzuya/node-hatena-blog-api/commit/6694e09))
