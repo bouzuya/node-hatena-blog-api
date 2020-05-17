@@ -1,3 +1,9 @@
+## [2.0.1](https://github.com/bouzuya/node-hatena-blog-api/compare/v2.0.0...v2.0.1) (2020-05-17)
+
+* fix: pkg.exports field ([6694e09](https://github.com/bouzuya/node-hatena-blog-api/commit/6694e09))
+
+
+
 # [2.0.0](https://github.com/bouzuya/node-hatena-blog-api/compare/v1.0.0...v2.0.0) (2020-05-17)
 
 * Add categories field to BlogEntry type ([53d94b4](https://github.com/bouzuya/node-hatena-blog-api/commit/53d94b4))
