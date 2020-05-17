@@ -41,6 +41,53 @@ interface WSSECredentials {
 //   return `https://blog.hatena.ne.jp/${hatenaId}/${blogId}/atom/category`;
 // };
 
+const promisedRequest = promisify(request) as (
+  p: request.UrlOptions & request.CoreOptions
+) => Promise<request.Response>;
+
+const authorizedRequest: (auth: Credentials) => Request = (
+  credentials: Credentials
+) => {
+  return async ({ method, body, url }): Promise<{ body: string }> => {
+    const response = await promisedRequest({
+      ...(credentials.authType === "basic"
+        ? {
+            auth: {
+              password: credentials.apiKey,
+              username: credentials.hatenaId,
+            },
+          }
+        : credentials.authType === "oauth"
+        ? {
+            oauth: {
+              // eslint-disable-next-line @typescript-eslint/camelcase
+              consumer_key: credentials.consumerKey,
+              // eslint-disable-next-line @typescript-eslint/camelcase
+              consumer_secret: credentials.consumerSecret,
+              token: credentials.token,
+              // eslint-disable-next-line @typescript-eslint/camelcase
+              token_secret: credentials.tokenSecret,
+            },
+          }
+        : credentials.authType === "wsse"
+        ? {
+            headers: {
+              Authorization: 'WSSE profile="UsernameToken"',
+              "X-WSSE": wsse({
+                password: credentials.apiKey,
+                username: credentials.hatenaId,
+              }).getWSSEHeader({ nonceBase64: true }),
+            },
+          }
+        : {}),
+      body,
+      method,
+      url,
+    });
+    return response;
+  };
+};
+
 const getServiceDocumentUri = (hatenaId: string, blogId: string): string => {
   return `https://blog.hatena.ne.jp/${hatenaId}/${blogId}/atom`;
 };
@@ -61,7 +108,9 @@ const getCollectionUri = async (
     const { attributes, children, name } = node;
     return getUnprefixedName(name) === "collection"
       ? attributes.href
-      : children.reduce((a: string | null, i) => (a !== null ? a : f(i)), null);
+      : children.reduce((a: string | null, i): string | null => {
+          return a !== null ? a : f(i);
+        }, null);
   };
   return f(xml.rootElement);
 };
@@ -140,49 +189,5 @@ class Client {
     return newCollectionUri;
   }
 }
-
-const promisedRequest = promisify(request) as (
-  p: request.UrlOptions & request.CoreOptions
-) => Promise<request.Response>;
-
-const authorizedRequest: (auth: Credentials) => Request = (
-  credentials: Credentials
-) => {
-  return async ({ method, body, url }) => {
-    const response = await promisedRequest({
-      ...(credentials.authType === "basic"
-        ? {
-            auth: {
-              password: credentials.apiKey,
-              username: credentials.hatenaId,
-            },
-          }
-        : credentials.authType === "oauth"
-        ? {
-            oauth: {
-              consumer_key: credentials.consumerKey,
-              consumer_secret: credentials.consumerSecret,
-              token: credentials.token,
-              token_secret: credentials.tokenSecret,
-            },
-          }
-        : credentials.authType === "wsse"
-        ? {
-            headers: {
-              Authorization: 'WSSE profile="UsernameToken"',
-              "X-WSSE": wsse({
-                password: credentials.apiKey,
-                username: credentials.hatenaId,
-              }).getWSSEHeader({ nonceBase64: true }),
-            },
-          }
-        : {}),
-      body,
-      method,
-      url,
-    });
-    return response;
-  };
-};
 
 export { Client };

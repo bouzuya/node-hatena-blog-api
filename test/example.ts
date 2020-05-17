@@ -1,7 +1,7 @@
 import { Client } from "../src/client";
 
 // tslint:disable:no-console
-const main = async () => {
+const main = async (): Promise<void> => {
   const apiKey = process.env.API_KEY;
   if (typeof apiKey === "undefined") throw new Error("API_KEY");
   const blogId = process.env.BLOG_ID;

@@ -8,6 +8,16 @@ import {
 } from "@bouzuya/xml";
 import { BlogEntry, BlogEntryContentType, BlogEntryParams } from "./blog-type";
 
+const isElement = (i: Node): i is Element => typeof i !== "string";
+
+const isText = (i: Node): i is string =>
+  typeof i === "string" && i.trim().length > 0;
+
+const getUnprefixedName = (prefixedName: string): string => {
+  const prefixAndLocalPart = prefixedName.split(":");
+  return prefixAndLocalPart[prefixAndLocalPart.length - 1];
+};
+
 // names: ['a', 'b'] ... /a/b
 const getElementByTagNames = (
   element: Element,
@@ -20,6 +30,14 @@ const getElementByTagNames = (
     });
     return typeof found === "undefined" ? null : found;
   }, element as Element | null);
+};
+
+const getText = (element: Element): string | null => {
+  if (element.children.length === 0) return null;
+  if (element.children.some((i) => !isText(i))) return null;
+  return element.children
+    .filter((i): i is string => isText(i))
+    .reduce((a, i) => a + i, "");
 };
 
 const getElementTextByTagNames = (
@@ -41,10 +59,6 @@ const getElementsByTagName = (element: Element, tagName: string): Element[] => {
           .concat(getElementsByTagName(node, tagName))
       : elements;
   }, [] as Element[]);
-};
-
-const getEntries = (element: Element): BlogEntry[] => {
-  return getElementsByTagName(element, "entry").map((entry) => getEntry(entry));
 };
 
 const getEntry = (entry: Element): BlogEntry => {
@@ -121,23 +135,9 @@ const getEntry = (entry: Element): BlogEntry => {
   };
 };
 
-const getText = (element: Element): string | null => {
-  if (element.children.length === 0) return null;
-  if (element.children.some((i) => !isText(i))) return null;
-  return element.children
-    .filter((i): i is string => isText(i))
-    .reduce((a, i) => a + i, "");
+const getEntries = (element: Element): BlogEntry[] => {
+  return getElementsByTagName(element, "entry").map((entry) => getEntry(entry));
 };
-
-const getUnprefixedName = (prefixedName: string): string => {
-  const prefixAndLocalPart = prefixedName.split(":");
-  return prefixAndLocalPart[prefixAndLocalPart.length - 1];
-};
-
-const isElement = (i: Node): i is Element => typeof i !== "string";
-
-const isText = (i: Node): i is string =>
-  typeof i === "string" && i.trim().length > 0;
 
 const toXml = (i: BlogEntryParams): Document => {
   const { categories, content, contentType, draft, title, updated } = i;
