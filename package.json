@@ -58,6 +58,7 @@
     "require": "lib/index.js"
   },
   "files": [
+    "esm",
     "lib"
   ],
   "homepage": "https://github.com/bouzuya/node-hatena-blog-api",
