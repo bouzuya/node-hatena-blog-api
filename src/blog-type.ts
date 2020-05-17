@@ -25,10 +25,10 @@ interface BlogEntry {
   updated: string;
 }
 
-type BlogEntryContentType
-  = 'text/html'
-  | 'text/x-hatena-syntax'
-  | 'text/x-markdown';
+type BlogEntryContentType =
+  | "text/html"
+  | "text/x-hatena-syntax"
+  | "text/x-markdown";
 
 interface BlogEntryParams {
   content: string;
@@ -39,9 +39,4 @@ interface BlogEntryParams {
   categories?: string[];
 }
 
-export {
-  Blog,
-  BlogEntry,
-  BlogEntryContentType,
-  BlogEntryParams
-};
+export { Blog, BlogEntry, BlogEntryContentType, BlogEntryParams };
