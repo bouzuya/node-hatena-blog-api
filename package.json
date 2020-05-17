@@ -73,10 +73,11 @@
     "url": "git://github.com/bouzuya/node-hatena-blog-api.git"
   },
   "scripts": {
-    "build": "npm-run-all -s build:format build:lint build:es2015 build:es5 build:lib build:esm",
+    "build": "npm-run-all -s build:format build:lint build:es2015 build:es5 build:lib build:esm build:esm-pkg",
     "build:es2015": "ttsc",
     "build:es5": "babel --out-dir .tmp/es5/ --source-maps inline .tmp/es2015/",
     "build:esm": "babel --no-babelrc --copy-files --no-comments --out-dir ./esm/ .tmp/es2015/src/",
+    "build:esm-pkg": "echo '{\"type\":\"module\"}'>./esm/package.json",
     "build:format": "prettier --check \"{src,test}/**/*.ts\"",
     "build:lib": "babel --copy-files --no-comments --out-dir ./lib/ .tmp/es2015/src/",
     "build:lint": "eslint \"{src,test}/**/*.ts\"",
@@ -91,6 +92,5 @@
     "watch:es5": "npm run build:es5 -- --watch",
     "watch:lib": "npm run build:lib -- --watch",
     "watch:test": "chokidar \".tmp/es5/**/*.js\" --command \"npm run test\" --silent"
-  },
-  "type": "module"
+  }
 }
