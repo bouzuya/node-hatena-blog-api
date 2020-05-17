@@ -29,9 +29,9 @@
     "wsse": "^3.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.3.1",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
     "@types/node": "^10.12.21",
     "@types/power-assert": "^1.5.0",
     "@types/request": "^2.48.1",
