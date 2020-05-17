@@ -79,7 +79,7 @@
     "build:format": "prettier --check \"{src,test}/**/*.ts\"",
     "build:lib": "babel --copy-files --no-comments --out-dir ./lib/ .tmp/es2015/src/",
     "build:lint": "eslint \"{src,test}/**/*.ts\"",
-    "clean": "rimraf .nyc_output .tmp coverage lib",
+    "clean": "rimraf .nyc_output .tmp coverage esm lib",
     "coveralls": "nyc report --reporter text-lcov | coveralls",
     "format": "prettier --write \"{src,test}/**/*.ts\"",
     "prepare": "npm-run-all -s 'clean' 'build'",
